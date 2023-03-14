@@ -13,7 +13,6 @@ const UserItem = ({user: {avatar_url, login, html_url}}) => {
                 </div>
             </div>
         )
-
 }
 
 UserItem.propTypes = {
