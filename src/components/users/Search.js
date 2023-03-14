@@ -9,11 +9,11 @@ const Search = (props) => {
     const onSubmit = (e) => {  
         e.preventDefault(); 
         if((text) === "")
-            props.setAlert("Please enter something..");
+            props.setAlert("Please enter something..", "light");
         else
             {
                 props.searchUsers(text);
-                props.setText('');
+                setText('');
             }   
     }
 
@@ -31,7 +31,6 @@ const Search = (props) => {
         </div>
     )
 }
-
 
 Search.propTypes = {
     searchUsers : PropTypes.func.isRequired,

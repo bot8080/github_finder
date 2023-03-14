@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import React, { Component } from 'react';
 import Navbar from './components/layout/Navbar';
-// import UserItem from './components/users/UserItem';
+
 import Users from './components/users/Users';
 import axios from 'axios';
 import Search from './components/users/Search';
@@ -26,8 +26,8 @@ class App extends Component {
     }
 
     setAlert = (msg, type) => {
-        console.log(1111);
-        this.setState({msg: msg, type: type});
+        this.setState({ alert: {msg: msg, type: type} });
+        setTimeout( ()=> this.setState( {alert:null} ), 3000 );
     }
  
     render() {
