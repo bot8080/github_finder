@@ -4,15 +4,16 @@ import Users from './components/users/Users';
 import axios from 'axios';
 import Search from './components/users/Search';
 import Alert from './components/layout/Alert'
-import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import About from './components/pages/About';
 import User from './components/users/User';
+import './App.css'; 
 
 class App extends Component {
     state = {
         users: [],
         user: {},
+        repos:[],
         loading: false,
         alert: null
     }
@@ -31,8 +32,16 @@ class App extends Component {
         this.setState({ user: res.data, loading: false });
     }
 
+    // Search specific user
+    getUserRepos = async (username) => {
+        this.setState({ loading: true });
+        // console.log("HERE");
+        const res = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+        this.setState({ repos: res.data, loading: false });
+    }
+
     // Clear data from page
-    clearData = (text) => {
+    clearData = () => {
         this.setState({ users: [], loading: false });
     }
 
@@ -61,7 +70,7 @@ class App extends Component {
                             <Route exact path="/about" element={<About/>}>
                             </Route>
 
-                            <Route exact path="/user/:login" element={ <User getUser={this.getUser} user={this.state.user} loading={this.state.loading} /> }>
+                            <Route exact path="/user/:login" element={ < User getUser={this.getUser} user={this.state.user} loading={this.state.loading} getUserRepos={this.getUserRepos} repos={this.state.repos} /> }>
                             </Route>
                         </Routes>
                     </div>
