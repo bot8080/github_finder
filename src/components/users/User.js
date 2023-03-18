@@ -5,17 +5,19 @@ import Spinner from '../layout/Spinner'
 import {Link} from 'react-router-dom'
 import Repos from '../repos/Repos'
 
-const User = ({ getUser, getUserRepos, user, loading, repos }) => {
+const User = ({ user, getUser, getUserRepos, loading, repos }) => {
     const { login } = useParams();
 
     useEffect(() => {
         getUser(login);
-    }, [getUser, login]);
-
-    useEffect(() =>{
-        // console.log("2HERE");
         getUserRepos(login);
-    }, [getUserRepos, login]);
+        //eslint-disable-next-line
+    }, [login]);
+
+    // useEffect(() =>{
+    //     // console.log("2HERE");
+    //     getUserRepos(login);
+    // }, [getUserRepos, login]);
 
     const { name, avatar_url, location, bio, company, html_url, blog, hireable, followers, following, public_repos, public_gists } = user;
 

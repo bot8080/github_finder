@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const Search = (props) => {
     const [text, setText] = useState('');
 
-    const onchange = (e) => { setText(e.target.value) }
+    const onchange = (e) => setText(e.target.value)
 
     const onSubmit = (e) => {  
         e.preventDefault(); 
