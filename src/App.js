@@ -18,13 +18,6 @@ const App = () => {
     const [loading, setLoading] = useState(false);
     const [alert, setAlert] = useState(null);
 
-    // Search all users
-    const searchUsers = async (text) => {
-        setLoading(true);
-        const res = await axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-        setUsers(res.data.items);
-        setLoading(false);
-    }
 
     // Search specific user
     const getUser = async (username) => {
@@ -64,7 +57,7 @@ const App = () => {
                         <Routes>
                             <Route exact path="/" element={
                                 <Fragment>
-                                    <Search searchUsers={searchUsers} setAlert={showAlert} clearData={clearData} showClear={users.length > 0 ? true : false} ></Search>
+                                    <Search setAlert={showAlert} clearData={clearData} showClear={users.length > 0 ? true : false} ></Search>
                                     <Users loading={loading} users={users} ></Users>
                                 </Fragment>
                             }>
