@@ -1,23 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner'
 import {Link} from 'react-router-dom'
 import Repos from '../repos/Repos'
+import GithubContext from '../../context/github/githubContext';
 
-const User = ({ user, getUser, getUserRepos, loading, repos }) => {
+const User = () => {
+    const githubContext = useContext(GithubContext);
+
     const { login } = useParams();
+    const {getUser, loading, user, getUserRepos, repos} = githubContext;
 
     useEffect(() => {
         getUser(login);
         getUserRepos(login);
         //eslint-disable-next-line
     }, [login]);
-
-    // useEffect(() =>{
-    //     // console.log("2HERE");
-    //     getUserRepos(login);
-    // }, [getUserRepos, login]);
 
     const { name, avatar_url, location, bio, company, html_url, blog, hireable, followers, following, public_repos, public_gists } = user;
 
@@ -57,13 +55,5 @@ const User = ({ user, getUser, getUserRepos, loading, repos }) => {
         </>
     );
 };
-
-User.propTypes = {
-    loading: PropTypes.bool.isRequired,
-    user: PropTypes.object.isRequired,
-    getUser: PropTypes.func.isRequired,
-    getUserRepos: PropTypes.func.isRequired,
-    repos: PropTypes.array.isRequired
-}
 
 export default User;
